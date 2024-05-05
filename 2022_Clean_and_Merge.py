@@ -7,20 +7,12 @@ Created on Fri May  3 11:05:09 2024
 
 #\\The first section of this script reads the excel files for relevant 2022 data.
 import pandas as pd
-import os
-
-attendance = pd.read_excel("Attendance.xlsx")
-demo = pd.read_excel("Demographics.xlsx")
-expend = pd.read_excel("ExpPerPupil.xlsx")
-staff = pd.read_excel("StaffData.xlsx")
-experience = pd.read_excel("TPExperience.xlsx")
-frpl = pd.read_excel("FreeReducedPriceLunch.xlsx")
-enrollment = pd.read_excel("Enrollment.xlsx")
 
 #\\This section repeats similar steps for cleaning each of the excel files.
 # In particular, it trims the files down to only include school district level data (entity_cd==0000)
 # for the specific variables we care about.
-script_dir = os.path.dirname(os.path.abspath())
+file_path = './Inputs/Enrollment.xlsx'
+enrollment = pd.read_excel(file_path)
 enrollment["ENTITY_CD"] = enrollment["ENTITY_CD"].astype(str)
 enrollment["YEAR"] = enrollment["YEAR"].astype(str)
 enrollment["ENTITY_CD"] = enrollment["ENTITY_CD"].str[-4:]
@@ -30,7 +22,8 @@ enrollment = enrollment.query("YEAR=='2022'")
 enrollment = enrollment[['ENTITY_NAME','YEAR','K12']]
 enrollment = enrollment.rename(columns={'ENTITY_NAME': 'DISTRICT'})
 
-
+file_path = './Inputs/FreeReducedPriceLunch.xlsx'
+frpl = pd.read_excel(file_path)
 frpl["ENTITY_CD"] = frpl["ENTITY_CD"].astype(str)
 frpl["YEAR"] = frpl["YEAR"].astype(str)
 frpl["ENTITY_CD"] = frpl["ENTITY_CD"].str[-4:]
@@ -41,7 +34,8 @@ frpl = frpl[['ENTITY_NAME','YEAR','PER_FREE_LUNCH', 'PER_REDUCED_LUNCH']]
 frpl = frpl.rename(columns={'ENTITY_NAME': 'DISTRICT'})
 frpl['PER_FRPL'] = frpl['PER_FREE_LUNCH'] + frpl['PER_REDUCED_LUNCH']
 
-
+file_path = './Inputs/Attendance.xlsx'
+attendance = pd.read_excel(file_path)
 attendance["ENTITY_CD"] = attendance["ENTITY_CD"].astype(str)
 attendance["YEAR"] = attendance["YEAR"].astype(str)
 attendance["ENTITY_CD"] = attendance["ENTITY_CD"].str[-4:]
@@ -51,7 +45,8 @@ attendance = attendance.query("YEAR=='2022'")
 attendance = attendance[['ENTITY_NAME','YEAR','ATTENDANCE_RATE']]
 attendance = attendance.rename(columns={'ENTITY_NAME': 'DISTRICT'})
 
-
+file_path = './Inputs/Demographics.xlsx'
+demo = pd.read_excel(file_path)
 demo["ENTITY_CD"] = demo["ENTITY_CD"].astype(str)
 demo["YEAR"] = demo["YEAR"].astype(str)
 demo["ENTITY_CD"] = demo["ENTITY_CD"].str[-4:]
@@ -61,6 +56,9 @@ demo = demo.query("YEAR=='2022'")
 demo = demo[['ENTITY_NAME','YEAR','PER_ELL', 'PER_BLACK', 'PER_HISP', 'PER_ASIAN', 'PER_WHITE', 'PER_SWD']]
 demo = demo.rename(columns={'ENTITY_NAME': 'DISTRICT'})
 
+
+file_path = './Inputs/ExpPerPupil.xlsx'
+expend = pd.read_excel(file_path)
 expend["ENTITY_CD"] = expend["ENTITY_CD"].astype(str)
 expend["YEAR"] = expend["YEAR"].astype(str)
 expend["ENTITY_CD"] = expend["ENTITY_CD"].str[-4:]
@@ -70,7 +68,8 @@ expend = expend.query("YEAR=='2022'")
 expend = expend[['ENTITY_NAME','YEAR','PER_STATE_LOCAL_EXP','PER_FED_STATE_LOCAL_EXP']]
 expend = expend.rename(columns={'ENTITY_NAME': 'DISTRICT'})
 
-
+file_path = './Inputs/StaffData.xlsx'
+staff = pd.read_excel(file_path)
 staff["ENTITY_CD"] = staff["ENTITY_CD"].astype(str)
 staff["YEAR"] = staff["YEAR"].astype(str)
 staff["ENTITY_CD"] = staff["ENTITY_CD"].str[-4:]
@@ -83,7 +82,9 @@ staff = staff.rename(columns={'SCHOOL_NAME': 'DISTRICT'})
 #//This section cleans the teacher experience data in a similar way to the other excel files.
 # But there is one key difference: I calculate Number of experienced teachers and the percentage of
 # teachers who are considered "experienced". This is then used to calculate the turnover rate among 
-# experienced teachers after mergins all of the files together.
+# experienced teachers after mergins all of the files together.\
+file_path = './Inputs/TPExperience.xlsx'
+experience = pd.read_excel(file_path)
 experience["ENTITY_CD"] = experience["ENTITY_CD"].astype(str)
 experience["YEAR"] = experience["YEAR"].astype(str)
 experience["ENTITY_CD"] = experience["ENTITY_CD"].str[-4:]
@@ -117,5 +118,6 @@ dist_turnover = dist_characteristics[['DISTRICT','YEAR','PER_TURN_ALL','PER_TURN
 dist_turnover = dist_turnover.set_index('YEAR', drop=True)
 
 #//This exports the information to csv files that will be used in later scripts
-dist_turnover.to_csv('dist_turnover.csv', index=False)
-dist_characteristics.to_csv('dist_characteristics.csv', index=False)
+Outputs = './Outputs/'
+dist_turnover.to_csv(Outputs + 'dist_turnover.csv', index=False)
+dist_characteristics.to_csv(Outputs +'dist_characteristics.csv', index=False)
