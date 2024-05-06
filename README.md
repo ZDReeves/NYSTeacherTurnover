@@ -13,7 +13,7 @@ Additionally, the last script in this repository (2022TableauMap.py) creates a G
 
 
 ### <u> Python Scripts </u>
-There are six total scripts in this repository, which each producing an an output that is used in a subsequent script. 
+There are six total scripts in this repository, which each producing an an output that is used in a subsequent script. They are labeled below in the order they should be run.
 
 1) [2022_Clean_and_Merge.py] merges individual datasets from the aforementioned databases from the NYSED. It creates two output files: dist_turnover.csv and dist_characteristics.csv; dist_turnover focuses on turnover data for each district whereas dist_characteristics contains district-level demographic information in addition to teacher turnover data. It is also important to acknowledge that NYS only publishes data on tunover for all teachers and for teachers with less than five years of experience (what I call "inexperienced teachers" for simplicity). Accordingly, I needed to calculate the turnover rate among experienced teachers using the data on total turnover and inexperienced turnover.
    
