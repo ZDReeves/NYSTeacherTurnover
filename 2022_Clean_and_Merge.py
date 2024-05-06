@@ -11,6 +11,8 @@ import pandas as pd
 #\\This section repeats similar steps for cleaning each of the excel files.
 # In particular, it trims the files down to only include school district level data (entity_cd==0000)
 # for the specific variables we care about.
+
+#\\Cleans enrollment data
 file_path = './Inputs/Enrollment.xlsx'
 enrollment = pd.read_excel(file_path)
 enrollment["ENTITY_CD"] = enrollment["ENTITY_CD"].astype(str)
@@ -22,6 +24,7 @@ enrollment = enrollment.query("YEAR=='2022'")
 enrollment = enrollment[['ENTITY_NAME','YEAR','K12']]
 enrollment = enrollment.rename(columns={'ENTITY_NAME': 'DISTRICT'})
 
+#\\Cleans FRPL data
 file_path = './Inputs/FreeReducedPriceLunch.xlsx'
 frpl = pd.read_excel(file_path)
 frpl["ENTITY_CD"] = frpl["ENTITY_CD"].astype(str)
@@ -34,6 +37,7 @@ frpl = frpl[['ENTITY_NAME','YEAR','PER_FREE_LUNCH', 'PER_REDUCED_LUNCH']]
 frpl = frpl.rename(columns={'ENTITY_NAME': 'DISTRICT'})
 frpl['PER_FRPL'] = frpl['PER_FREE_LUNCH'] + frpl['PER_REDUCED_LUNCH']
 
+#\\ Cleans attendance data
 file_path = './Inputs/Attendance.xlsx'
 attendance = pd.read_excel(file_path)
 attendance["ENTITY_CD"] = attendance["ENTITY_CD"].astype(str)
@@ -45,6 +49,7 @@ attendance = attendance.query("YEAR=='2022'")
 attendance = attendance[['ENTITY_NAME','YEAR','ATTENDANCE_RATE']]
 attendance = attendance.rename(columns={'ENTITY_NAME': 'DISTRICT'})
 
+#\\Cleans demographic data
 file_path = './Inputs/Demographics.xlsx'
 demo = pd.read_excel(file_path)
 demo["ENTITY_CD"] = demo["ENTITY_CD"].astype(str)
@@ -56,7 +61,7 @@ demo = demo.query("YEAR=='2022'")
 demo = demo[['ENTITY_NAME','YEAR','PER_ELL', 'PER_BLACK', 'PER_HISP', 'PER_ASIAN', 'PER_WHITE', 'PER_SWD']]
 demo = demo.rename(columns={'ENTITY_NAME': 'DISTRICT'})
 
-
+#\\ Cleans per-pupil expenditure data
 file_path = './Inputs/ExpPerPupil.xlsx'
 expend = pd.read_excel(file_path)
 expend["ENTITY_CD"] = expend["ENTITY_CD"].astype(str)
@@ -68,6 +73,7 @@ expend = expend.query("YEAR=='2022'")
 expend = expend[['ENTITY_NAME','YEAR','PER_STATE_LOCAL_EXP','PER_FED_STATE_LOCAL_EXP']]
 expend = expend.rename(columns={'ENTITY_NAME': 'DISTRICT'})
 
+#\\Cleans staff data (mostly turnover data)
 file_path = './Inputs/StaffData.xlsx'
 staff = pd.read_excel(file_path)
 staff["ENTITY_CD"] = staff["ENTITY_CD"].astype(str)
@@ -82,7 +88,8 @@ staff = staff.rename(columns={'SCHOOL_NAME': 'DISTRICT'})
 #//This section cleans the teacher experience data in a similar way to the other excel files.
 # But there is one key difference: I calculate Number of experienced teachers and the percentage of
 # teachers who are considered "experienced". This is then used to calculate the turnover rate among 
-# experienced teachers after mergins all of the files together.\
+# experienced teachers after merging all of the files together.
+
 file_path = './Inputs/TPExperience.xlsx'
 experience = pd.read_excel(file_path)
 experience["ENTITY_CD"] = experience["ENTITY_CD"].astype(str)
