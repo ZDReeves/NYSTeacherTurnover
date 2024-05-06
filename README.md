@@ -1,10 +1,10 @@
 # Understanding the Revolving Door
-## A Quantitative Analysis of Teacher Turnover in New York State
+## A Quantitative Analysis of Turnover among Experienced and Inexperienced Teachers in New York State
  
 ### <u> Motivation </u>
 High rates of teacher turnover afflict school districts across the country. More than just an inconvenience, research demonstrates that high turnover is associated with decreased academic achievement and instructional quality, and it disproportionately impacts low-income communities and communities of color (Ronfeldt, Loeb & Wyckoff, 2013; Sorenson & Ladd, 2020; Simon & Johnson, 2015). 
 
-As a former teacher, it seems that policy conversations about teacher turnover often ignore the disparate causes of among inexperienced and experienced teachers. Sure, insufficient salaries and difficult working conditions negatively impact everyone, but I believe there are other factors worth interrogating, too. This repository analyzes turnover among experienced teachers and inexperienced teachers across New York State with the hope of motivating further inquiry. 
+As a former teacher, it seems that policy conversations about teacher turnover often ignore the disitinct causes of turnover for inexperienced and experienced teachers. Sure, insufficient salaries and difficult working conditions negatively impact everyone, but I believe there are other factors worth interrogating, too. To this end, this repository analyzes turnover among experienced teachers and inexperienced teachers across New York State with the hope of motivating further inquiry. 
 
 ### <u> Input Data </u>
 All of the data used in this analysis can be found in the Inputs file in the repository. I used public data from the New York State Education Department at the district level from 2014-2022. Specifically, I gathered teacher experience and turnover data from the Staff files within their Student and Educator Database and their Report Card Database. Data regarding student demographics comes from the Student and Educator Database as well as the Enrollment Database. A link to the NYSED Data downloads site is located here: https://data.nysed.gov/downloads.php
